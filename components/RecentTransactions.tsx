@@ -41,7 +41,7 @@ const RecentTransactions = ({ data }: { data: Transaction[] }) => {
                         </h4>
                         <Link href="/transactions">
                             <button
-                                className="text-sm text-slate-900 font-semibold cursor-pointer hover:underline"
+                                className="text-sm text-slate-900 font-semibold cursor-pointer underline line-clamp-1"
                             >
                                 See all
                             </button>
