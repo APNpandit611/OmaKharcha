@@ -33,7 +33,7 @@ const RecentTransactions = ({ data }: { data: Transaction[] }) => {
     // };
     return (
         <div className="w-full p-3">
-            <ScrollArea className="h-[75vh] w-full rounded-lg border overflow-y-auto bg-white">
+            <section className="h-[75vh] w-full rounded-lg border overflow-y-auto bg-white">
                 <div className="p-6 flex flex-col gap-2">
                     <div className="flex items-start justify-between">
                         <h4 className="mb-4 text-sm font-medium">
@@ -133,7 +133,7 @@ const RecentTransactions = ({ data }: { data: Transaction[] }) => {
                         )}
                     </div>
                 </div>
-            </ScrollArea>
+            </section>
         </div>
     );
 };

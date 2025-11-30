@@ -7,7 +7,7 @@ const Navbar = () => {
         <div className="sticky z-10 top-0 p-4 w-full flex items-center justify-between bg-white border-b border-gray-200">
             <Link
                 href="/"
-                className="text-4xl md:text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-slate-300 via-slate-700 to-slate-900"
+                className="text-2xl md:text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-slate-300 via-slate-700 to-slate-900"
             >
                 OmaKharcha
             </Link>

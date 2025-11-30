@@ -1,5 +1,5 @@
 "use client";
-import { Loader2, Trash2 } from "lucide-react";
+import { Loader2, Plus, PlusCircle, Trash2 } from "lucide-react";
 import Image from "next/image";
 import React, { JSX, useState } from "react";
 import { Button } from "./ui/button";
@@ -123,15 +123,15 @@ const FormModal = ({
             ) : (
                 <button
                     onClick={() => setOpen(true)}
-                    className="p-1.5 text-white bg-gray-900 rounded-lg px-5 cursor-pointer"
+                    className="p-1.5 text-white bg-gray-900 rounded-lg px-5 cursor-pointer flex items-center justify-center gap-1"
                 >
-                    Add Transaction
+                    <Plus className="w-4 h-4"/> Add 
                 </button>
             )}
 
             {open && (
                 <div className="w-screen h-screen fixed inset-0 bg-black/60 dark:bg-black/40 backdrop-blur-xs z-9999 flex items-center justify-center">
-                    <div className="bg-white dark:bg-slate-900 p-6 rounded-md relative w-[90%] nd:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%]">
+                    <div className="bg-white dark:bg-slate-900 p-5 rounded-md relative w-[90%] nd:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%]">
                         <Form
                             action={action}
                             setOpen={setOpen}
