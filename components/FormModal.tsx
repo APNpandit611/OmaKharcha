@@ -42,7 +42,8 @@ const Form = ({
     const [loading, setLoading] = useState<boolean | null>(false);
     const router = useRouter();
 
-    const handleDelete = async () => {
+    const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+e.preventDefault();
         try {
             setLoading(true);
             const res = await deleteTransaction(id);
