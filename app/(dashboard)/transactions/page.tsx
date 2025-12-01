@@ -21,7 +21,7 @@ const TransactionPage = async ({
             <section className="h-[85vh] w-full rounded-lg border overflow-y-auto bg-white">
                 <div className="p-6 flex flex-col gap-2">
                     <div className="flex flex-col items-start justify-between md:flex-row ">
-                        <span className="mb-4 text-sm font-medium ">
+                        <span className="mb-4 text-lg font-medium ">
                             Recent Transactions
                         </span>
                         <TableSearch/>

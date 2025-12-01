@@ -130,7 +130,7 @@ export default async function Home() {
     //     saveUser()
     // }, [user])
     return (
-        <div className="bg-gray-50 h-screen w-full flex flex-col lg:flex-row">
+        <div className="bg-gray-50 h-screen w-full max-w-7xl mx-auto flex flex-col lg:flex-row">
             {/* <Navbar/> */}
             <section className="w-full lg:w-[60%]">
                 <BalanceInfoCard

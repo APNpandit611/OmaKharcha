@@ -9,7 +9,7 @@ export default function HomeLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="min-h-screen mx-auto max-w-7xl bg-primary-background font-sans">
+        <div className="min-h-screen bg-gray-50 font-sans">
             <Navbar />
 
             {children}
