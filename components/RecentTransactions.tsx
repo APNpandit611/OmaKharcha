@@ -35,7 +35,7 @@ const RecentTransactions = ({ data }: { data: Transaction[] }) => {
     // group relative backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300
     return (
         <div className="w-full p-3">
-            <div className="h-[75vh] w-full rounded-lg group relative overflow-hidden bg-white/60 border border-white/40 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+            <div className="h-[75vh] w-full rounded-lg group relative overflow-hidden bg-white/60 border border-white/40 shadow-lg hover:shadow-2xl transition-all duration-300">
                 <div className="p-6 flex flex-col gap-2 ">
                     <div className="flex items-start justify-between ">
                         <Label className="mb-4 text-md font-medium">
