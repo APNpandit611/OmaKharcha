@@ -32,8 +32,8 @@ const RecentTransactions = ({ data }: { data: Transaction[] }) => {
     //     }
     // };
     return (
-        <div className="w-full p-3">
-            <section className="h-[75vh] w-full rounded-lg border overflow-y-auto bg-white">
+        <div className="w-full p-3 ">
+            <section className="h-[75vh] w-full rounded-lg overflow-y-auto group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                 <div className="p-6 flex flex-col gap-2">
                     <div className="flex items-start justify-between">
                         <h4 className="mb-4 text-sm font-medium">

@@ -1,8 +1,10 @@
 import BalanceInfoCard from "@/components/BalanceInfoCard";
 import ExpenseChart from "@/components/ExpenseChart";
+import { IncomeExpenseChart } from "@/components/IncomeExpenseChart";
 import RecentTransactions from "@/components/RecentTransactions";
 import { createUser, getTransactions } from "@/lib/actions";
 import { currentUser } from "@clerk/nextjs/server";
+import { startOfMonth, subMonths, isAfter, isBefore } from "date-fns";
 
 //     id: string;
 //     type: "income" | "expense";
@@ -104,13 +106,13 @@ import { currentUser } from "@clerk/nextjs/server";
 // ];
 
 export default async function Home() {
-    const user = await currentUser()
+    const user = await currentUser();
     if (user) {
-        await createUser()
+        await createUser();
     }
 
-    const transactions = await getTransactions({p:1});
-    const INITIAL_TRANSACTIONS = transactions.data ?? []
+    const transactions = await getTransactions({ p: 1 });
+    const INITIAL_TRANSACTIONS = transactions.data ?? [];
 
     const totalIncome = INITIAL_TRANSACTIONS.filter(
         (t) => t.type === "income"
@@ -120,8 +122,27 @@ export default async function Home() {
         (t) => t.type === "expense"
     ).reduce((sum, t) => sum + t.amount, 0);
 
-
     const balance = totalIncome - totalExpenses;
+
+    // --- Calculate last month totals ---
+
+    const thisMonthStart = startOfMonth(new Date());
+    const lastMonthStart = startOfMonth(subMonths(new Date(), 1));
+
+    const lastMonthIncome = INITIAL_TRANSACTIONS.filter(
+        (t) =>
+            t.type === "income" &&
+            isAfter(new Date(t.date), lastMonthStart) &&
+            isBefore(new Date(t.date), thisMonthStart)
+    ).reduce((sum, t) => sum + t.amount, 0);
+
+    const lastMonthExpenses = INITIAL_TRANSACTIONS.filter(
+        (t) =>
+            t.type === "expense" &&
+            isAfter(new Date(t.date), lastMonthStart) &&
+            isBefore(new Date(t.date), thisMonthStart)
+    ).reduce((sum, t) => sum + t.amount, 0);
+    
 
     // useEffect(() => {
     //     const saveUser = async() => {
@@ -130,18 +151,19 @@ export default async function Home() {
     //     saveUser()
     // }, [user])
     return (
-        <div className="bg-gray-50 h-screen w-full max-w-7xl mx-auto flex flex-col lg:flex-row">
+        <div className="bg-gray-50 min-h-screen w-full max-w-7xl mx-auto flex flex-col lg:flex-row">
             {/* <Navbar/> */}
             <section className="w-full lg:w-[60%]">
                 <BalanceInfoCard
                     totalIncome={totalIncome}
                     totalExpenses={totalExpenses}
                     balance={balance}
+                    lastIncome={lastMonthIncome}
+                    lastExpense={lastMonthExpenses}
                 />
 
-                <div>
-                    <ExpenseChart data={INITIAL_TRANSACTIONS} />
-                </div>
+                <ExpenseChart data={INITIAL_TRANSACTIONS} />
+                <IncomeExpenseChart data={INITIAL_TRANSACTIONS} />
             </section>
 
             <div className="w-full lg:w-[40%]">

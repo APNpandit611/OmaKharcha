@@ -38,7 +38,7 @@ const ExpenseChart = ({ data }: { data: Transaction[] }) => {
 
     return (
         <div className="w-full p-3">
-            <Card>
+            <Card className="group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                 <CardHeader>
                     <CardTitle>Expenses by Category</CardTitle>
                 </CardHeader>
