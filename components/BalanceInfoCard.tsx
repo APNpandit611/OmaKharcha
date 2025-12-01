@@ -12,7 +12,7 @@ type BalanceInfoCardProps = {
     totalIncome: number;
     totalExpenses: number;
     balance: number;
-    lastIncome:number;
+    lastIncome: number;
     lastExpense: number;
 };
 
@@ -21,11 +21,11 @@ const BalanceInfoCard = ({
     totalExpenses,
     balance,
     lastExpense,
-    lastIncome
+    lastIncome,
 }: BalanceInfoCardProps) => {
     const savingsRate =
         totalIncome > 0 ? ((balance / totalIncome) * 100).toFixed(1) : "0";
-   
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-3">
             {/* <Card>
@@ -48,7 +48,7 @@ const BalanceInfoCard = ({
             </Card> */}
 
             {/* Total Balance */}
-            <div className="group relative overflow-hidden backdrop-blur-xl bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+            <div className="group relative overflow-hidden backdrop-blur-xl bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300">
                 <div className="absolute inset-0 bg-white/10"></div>
                 <div className="relative z-10">
                     <div className="flex items-center justify-between mb-4">
@@ -78,7 +78,7 @@ const BalanceInfoCard = ({
             </Card> */}
 
             {/* Total Income */}
-            <div className="group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
                 <div className="flex items-center justify-between mb-4">
                     <div className="bg-green-100 rounded-full p-3">
                         <ArrowUpRight className="h-5 w-5 text-green-600" />
@@ -108,7 +108,7 @@ const BalanceInfoCard = ({
             </Card> */}
 
             {/* Total Expenses */}
-            <div className="group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
                 <div className="flex items-center justify-between mb-4">
                     <div className="bg-red-100 rounded-full p-3">
                         <ArrowDownRight className="h-5 w-5 text-red-600" />
@@ -123,7 +123,7 @@ const BalanceInfoCard = ({
             </div>
 
             {/* Savings Rate */}
-            <div className="group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
                 <div className="flex items-center justify-between mb-4">
                     <div className="bg-purple-100 rounded-full p-3">
                         <TrendingDown className="h-5 w-5 text-purple-600" />

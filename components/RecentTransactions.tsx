@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import FormModal from "./FormModal";
 import Link from "next/link";
+import { Label } from "./ui/label";
 
 const RecentTransactions = ({ data }: { data: Transaction[] }) => {
     // const router = useRouter();
@@ -31,24 +32,23 @@ const RecentTransactions = ({ data }: { data: Transaction[] }) => {
     //         setLoadingId(null);
     //     }
     // };
+    // group relative backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300
     return (
-        <div className="w-full p-3 ">
-            <section className="h-[75vh] w-full rounded-lg overflow-y-auto group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="p-6 flex flex-col gap-2">
-                    <div className="flex items-start justify-between">
-                        <h4 className="mb-4 text-sm font-medium">
+        <div className="w-full p-3">
+            <div className="h-[75vh] w-full rounded-lg group relative overflow-hidden bg-white/60 border border-white/40 p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                <div className="p-6 flex flex-col gap-2 ">
+                    <div className="flex items-start justify-between ">
+                        <Label className="mb-4 text-md font-medium">
                             Recent Transactions
-                        </h4>
+                        </Label>
                         <Link href="/transactions">
-                            <button
-                                className="text-sm text-slate-900 font-semibold cursor-pointer underline line-clamp-1"
-                            >
+                            <button className="text-md text-slate-900 font-semibold cursor-pointer underline line-clamp-1">
                                 See all
                             </button>
                         </Link>
                     </div>
 
-                    <div className="p-3 rounded-lg flex flex-col gap-3">
+                    <div className="p-0 rounded-lg flex flex-col gap-3">
                         {data.length === 0 ? (
                             <p className="text-gray-500 text-center py-8">
                                 No transactions yet
@@ -133,7 +133,7 @@ const RecentTransactions = ({ data }: { data: Transaction[] }) => {
                         )}
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     );
 };

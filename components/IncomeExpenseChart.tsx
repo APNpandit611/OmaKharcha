@@ -11,6 +11,7 @@ import {
     ResponsiveContainer,
     Legend,
 } from "recharts";
+import { Label } from "./ui/label";
 
 // Helper function to format a date string for display
 const formatDateForDisplay = (dateString: string) =>
@@ -57,78 +58,90 @@ export function IncomeExpenseChart({ data }: { data: Transaction[] }) {
 
     return (
         <div className="w-full p-3">
-            <div className=" rounded-2xl p-6 group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <h3 className="text-gray-900 mb-4">Spending Trends</h3>
-                <ResponsiveContainer width="100%" height={300}>
-                    <AreaChart data={chartData}>
-                        <defs>
-                            <linearGradient
-                                id="colorIncome"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
-                            >
-                                <stop
-                                    offset="5%"
-                                    stopColor="#10b981"
-                                    stopOpacity={0.3}
-                                />
-                                <stop
-                                    offset="95%"
-                                    stopColor="#10b981"
-                                    stopOpacity={0}
-                                />
-                            </linearGradient>
-                            <linearGradient
-                                id="colorExpense"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
-                            >
-                                <stop
-                                    offset="5%"
-                                    stopColor="#ef4444"
-                                    stopOpacity={0.3}
-                                />
-                                <stop
-                                    offset="95%"
-                                    stopColor="#ef4444"
-                                    stopOpacity={0}
-                                />
-                            </linearGradient>
-                        </defs>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                        <XAxis dataKey="date" stroke="#6b7280" />
-                        <YAxis stroke="#6b7280" />
-                        <Tooltip
-                            contentStyle={{
-                                backgroundColor: "rgba(255, 255, 255, 0.9)",
-                                border: "none",
-                                borderRadius: "8px",
-                                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                            }}
-                        />
-                        <Legend />
-                        <Area
-                            type="monotone"
-                            dataKey="Income"
-                            stroke="#10b981"
-                            strokeWidth={2}
-                            fillOpacity={1}
-                            fill="url(#colorIncome)"
-                        />
-                        <Area
-                            type="monotone"
-                            dataKey="Expenses"
-                            stroke="#ef4444"
-                            strokeWidth={2}
-                            fillOpacity={1}
-                            fill="url(#colorExpense)"
-                        />
-                    </AreaChart>
-                </ResponsiveContainer>
+            <div className=" rounded-2xl p-6 group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-2xl transition-all duration-300">
+                <Label className="text-gray-900 text-md mb-4">
+                    Spending Trends
+                </Label>
+
+                {chartData.length === 0 ? (
+                    <p className="text-gray-500 text-center py-8">
+                        No spending trends data to display
+                    </p>
+                ) : (
+                    <ResponsiveContainer width="100%" height={300}>
+                        <AreaChart data={chartData}>
+                            <defs>
+                                <linearGradient
+                                    id="colorIncome"
+                                    x1="0"
+                                    y1="0"
+                                    x2="0"
+                                    y2="1"
+                                >
+                                    <stop
+                                        offset="5%"
+                                        stopColor="#10b981"
+                                        stopOpacity={0.3}
+                                    />
+                                    <stop
+                                        offset="95%"
+                                        stopColor="#10b981"
+                                        stopOpacity={0}
+                                    />
+                                </linearGradient>
+                                <linearGradient
+                                    id="colorExpense"
+                                    x1="0"
+                                    y1="0"
+                                    x2="0"
+                                    y2="1"
+                                >
+                                    <stop
+                                        offset="5%"
+                                        stopColor="#ef4444"
+                                        stopOpacity={0.3}
+                                    />
+                                    <stop
+                                        offset="95%"
+                                        stopColor="#ef4444"
+                                        stopOpacity={0}
+                                    />
+                                </linearGradient>
+                            </defs>
+                            <CartesianGrid
+                                strokeDasharray="3 3"
+                                stroke="#e5e7eb"
+                            />
+                            <XAxis dataKey="date" stroke="#6b7280" />
+                            <YAxis stroke="#6b7280" />
+                            <Tooltip
+                                contentStyle={{
+                                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                                    border: "none",
+                                    borderRadius: "8px",
+                                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                                }}
+                            />
+                            <Legend />
+                            <Area
+                                type="monotone"
+                                dataKey="Income"
+                                stroke="#10b981"
+                                strokeWidth={2}
+                                fillOpacity={1}
+                                fill="url(#colorIncome)"
+                            />
+                            <Area
+                                type="monotone"
+                                dataKey="Expenses"
+                                stroke="#ef4444"
+                                strokeWidth={2}
+                                fillOpacity={1}
+                                fill="url(#colorExpense)"
+                            />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                )}
             </div>
         </div>
     );
