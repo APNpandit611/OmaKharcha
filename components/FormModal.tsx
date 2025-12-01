@@ -43,14 +43,14 @@ const Form = ({
     const router = useRouter();
 
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
-e.preventDefault();
+        e.preventDefault();
         try {
             setLoading(true);
             const res = await deleteTransaction(id);
             if (res.success) {
-toast(`Transaction deleted successfully!`);
-setLoading(false);
-router.refresh();
+                router.refresh();
+                setLoading(false);
+                toast(`Transaction deleted successfully!`);
             }
         } catch (error) {
             console.error(`failed to delete transaction!`, error);

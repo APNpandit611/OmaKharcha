@@ -18,7 +18,7 @@ const TransactionPage = async ({
     
     return (
         <div className="bg-gray-50 h-screen w-full p-3">
-            <section className="h-[85vh] w-full rounded-lg border overflow-y-auto bg-white">
+            <section className="h-[85vh] max-w-7xl mx-auto w-full rounded-lg border overflow-hidden bg-white">
                 <div className="p-6 flex flex-col gap-2">
                     <div className="flex flex-col items-start justify-between md:flex-row ">
                         <span className="mb-4 text-lg font-medium ">
@@ -27,7 +27,7 @@ const TransactionPage = async ({
                         <TableSearch/>
                     </div>
 
-                    <div className="rounded-lg flex flex-col gap-3">
+                    <div className="py-3 rounded-lg flex flex-col gap-3">
                         {!user || transactions.count === 0 ? (
                             <p className="text-gray-500 text-center py-8">
                                 No transactions yet
