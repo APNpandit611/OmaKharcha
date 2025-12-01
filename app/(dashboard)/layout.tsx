@@ -13,8 +13,8 @@ export default function HomeLayout({
             <Navbar />
 
             {children}
-            {/* <ToastContainer position="bottom-right" theme="dark"/> */}
-             <ToastContainer position="bottom-right" theme="dark" />
+            {/* <ToastContainer position="bottom-right" theme="dark"/> 
+             <ToastContainer position="bottom-right" theme="dark" /> *\}
         </div>
     );
 }
