@@ -14,7 +14,7 @@ export default function HomeLayout({
 
             {children}
             {/* <ToastContainer position="bottom-right" theme="dark"/> 
-             <ToastContainer position="bottom-right" theme="dark" /> *\}
+             <ToastContainer position="bottom-right" theme="dark" /> */}
         </div>
     );
 }
