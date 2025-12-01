@@ -47,8 +47,9 @@ const Form = ({
             setLoading(true);
             const res = await deleteTransaction(id);
             if (res.success) {
+toast(`Transaction deleted successfully!`);
                 router.refresh();
-                toast(`Transaction deleted successfully!`);
+                
             }
         } catch (error) {
             console.error(`failed to delete transaction!`, error);
