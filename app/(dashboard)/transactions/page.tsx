@@ -27,7 +27,7 @@ const TransactionPage = async ({
                         <TableSearch/>
                     </div>
 
-                    <div className="p-3 rounded-lg flex flex-col gap-3">
+                    <div className="rounded-lg flex flex-col gap-3">
                         {!user || transactions.count === 0 ? (
                             <p className="text-gray-500 text-center py-8">
                                 No transactions yet
