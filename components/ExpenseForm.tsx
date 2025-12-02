@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { Loader2 } from "lucide-react";
+import { CheckCheck, Loader2 } from "lucide-react";
 import InputField from "./InputField";
 import { Button } from "./ui/button";
 import {
@@ -130,7 +130,7 @@ const ExpenseForm = ({
                                 onClick={() => setValue("type", "expense")}
                                 className="w-full"
                             >
-                                Expense
+                                Expense {currentType === "expense" && <CheckCheck className="text-green-700"/>}
                             </Button>
                             <Button
                                 type="button"
@@ -142,7 +142,7 @@ const ExpenseForm = ({
                                 onClick={() => setValue("type", "income")}
                                 className="w-full"
                             >
-                                Income
+                                Income {currentType === "income" && <CheckCheck className="text-green-700"/>}
                             </Button>
                         </div>
                         {errors.type && (
