@@ -20,7 +20,7 @@ const TableSearch = () => {
         {/* SEARCH BAR */}
         
         <Search width={16} height={16} className='text-gray-400'/>
-        <input placeholder='Search transactions' type='text' className='w-[200px] p-2 bg-transparent rounded-md text-small outline-none'/>
+        <input placeholder='Search transactions...' type='text' className='w-[200px] p-2 bg-transparent rounded-md text-small outline-none'/>
       </form>
   )
 }

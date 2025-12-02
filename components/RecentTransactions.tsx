@@ -125,6 +125,7 @@ const RecentTransactions = ({ data }: { data: Transaction[] }) => {
                                             <FormModal
                                                 action="delete"
                                                 id={transaction.id}
+                                                data={transaction}
                                             />
                                         </div>
                                     </div>

@@ -17,12 +17,12 @@ const TransactionPage = async ({
     const transactions = await getTransactions({ p, queryParams });
     
     return (
-        <div className="bg-gray-50 h-screen w-full p-3">
-            <section className="h-[85vh] max-w-7xl mx-auto w-full rounded-lg border overflow-hidden bg-white">
-                <div className="p-6 flex flex-col gap-2">
+        <div className="bg-gray-50 w-full p-3">
+            <section className="max-w-7xl mx-auto w-full rounded-lg border overflow-hidden bg-white">
+                <div className="h-screen p-6 flex flex-col gap-2 overflow-y-auto">
                     <div className="flex flex-col items-start justify-between md:flex-row ">
                         <span className="mb-4 text-lg font-medium ">
-                            Recent Transactions
+                            All Transactions
                         </span>
                         <TableSearch/>
                     </div>
@@ -104,6 +104,7 @@ const TransactionPage = async ({
                                             <FormModal
                                                 action="delete"
                                                 id={transaction.id}
+                                                data={transaction}
                                             />
                                         </div>
                                     </div>

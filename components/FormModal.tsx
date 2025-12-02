@@ -44,16 +44,15 @@ const Form = ({
 
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        try {
-            setLoading(true);
-            const res = await deleteTransaction(id);
-            if (res.success) {
-                router.refresh();
-                setLoading(false);
-                toast(`Transaction deleted successfully!`);
-            }
-        } catch (error) {
-            console.error(`failed to delete transaction!`, error);
+        setLoading(true);
+        const res = await deleteTransaction(id);
+        if (res.success) {
+            toast(`Transaction deleted successfully!`);
+            setLoading(false)
+            setOpen(false)
+            router.refresh();
+        } else {
+            toast("Failed to delete transaction!");
         }
     };
 
@@ -67,14 +66,18 @@ const Form = ({
             />
         );
     }
-
     if (action === "delete" && id) {
         return (
             <form className=" p-4 flex flex-col gap-4 items-center justify-center">
                 <span className="text-center font-medium">
                     All the data will be lost. Are you sure you want to delete
-                    this transaction?
+                    this{" "}
+                    <span className="font-bold">
+                        {data?.type} {data?.description}
+                    </span>
+                    ?
                 </span>
+
                 <Button
                     variant="destructive"
                     className="bg-red-500 text-white hover:bg-red-600 w-fit cursor-pointer"

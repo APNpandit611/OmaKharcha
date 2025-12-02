@@ -38,7 +38,7 @@ const Pagination = ({
     const hasPrev = ITEM_PER_PAGE * (page - 1) > 0;
     const hasNext = ITEM_PER_PAGE * (page - 1) + ITEM_PER_PAGE < count;
     return (
-        <div className="py-6 flex items-center justify-between text-gray-500">
+        <div className="p-4 flex items-center justify-between text-gray-500">
             <button
                 disabled={!hasPrev}
                 className={`py-2 px-4 rounded-md bg-gradient-to-r from-gray-600 to-gray-400 text-white text-xs font-semibold disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer`}
