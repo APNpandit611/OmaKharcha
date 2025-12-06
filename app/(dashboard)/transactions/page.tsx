@@ -1,3 +1,4 @@
+import BackButton from "@/components/BackButton";
 import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import TableSearch from "@/components/TableSearch";
@@ -15,14 +16,13 @@ const TransactionPage = async ({
     const { page, ...queryParams } = await searchParams;
     const p = page ? parseInt(page) : 1;
     const transactions = await getTransactions({ p, queryParams });
-    
     return (
         <div className="bg-gray-50 w-full p-3">
             <section className="max-w-7xl mx-auto w-full rounded-lg border overflow-hidden bg-white">
                 <div className="h-screen p-6 flex flex-col gap-2 overflow-y-auto">
                     <div className="flex flex-col items-start justify-between md:flex-row ">
-                        <span className="mb-4 text-lg font-medium ">
-                            All Transactions
+                        <span className="mb-4 text-lg font-medium flex items-center gap-4 ">
+                           {queryParams.search ? <BackButton/> : ""} All Transactions
                         </span>
                         <TableSearch/>
                     </div>
