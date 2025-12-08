@@ -116,11 +116,11 @@ export default async function Home() {
 
     const totalIncome = INITIAL_TRANSACTIONS.filter(
         (t) => t.type === "income"
-    ).reduce((sum, t) => sum + t.amount, 0);
+    ).reduce((sum, t) => sum + Number(t.amount || 0), 0);
 
     const totalExpenses = INITIAL_TRANSACTIONS.filter(
         (t) => t.type === "expense"
-    ).reduce((sum, t) => sum + t.amount, 0);
+    ).reduce((sum, t) => sum + Number(t.amount || 0), 0);
 
     const balance = totalIncome - totalExpenses;
 
