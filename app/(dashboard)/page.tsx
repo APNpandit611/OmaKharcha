@@ -2,7 +2,7 @@ import BalanceInfoCard from "@/components/BalanceInfoCard";
 import ExpenseChart from "@/components/ExpenseChart";
 import { IncomeExpenseChart } from "@/components/IncomeExpenseChart";
 import RecentTransactions from "@/components/RecentTransactions";
-import { createUser, getTransactions } from "@/lib/actions";
+import { createUser, getTransactions, getTransactionTotals } from "@/lib/actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { startOfMonth, subMonths, isAfter, isBefore } from "date-fns";
 
@@ -111,37 +111,45 @@ export default async function Home() {
         await createUser();
     }
 
+    const trans = await getTransactionTotals()
+    const {
+        income,
+        expense,
+        lastIncome,
+        lastExpense,
+    } = trans;
+
     const transactions = await getTransactions({ p: 1 });
     const INITIAL_TRANSACTIONS = transactions.data ?? [];
 
-    const totalIncome = INITIAL_TRANSACTIONS.filter(
-        (t) => t.type === "income"
-    ).reduce((sum, t) => sum + Number(t.amount || 0), 0);
+    // const totalIncome = INITIAL_TRANSACTIONS.filter(
+    //     (t) => t.type === "income"
+    // ).reduce((sum, t) => sum + Number(t.amount || 0), 0);
 
-    const totalExpenses = INITIAL_TRANSACTIONS.filter(
-        (t) => t.type === "expense"
-    ).reduce((sum, t) => sum + Number(t.amount || 0), 0);
+    // const totalExpenses = INITIAL_TRANSACTIONS.filter(
+    //     (t) => t.type === "expense"
+    // ).reduce((sum, t) => sum + Number(t.amount || 0), 0);
 
-    const balance = totalIncome - totalExpenses;
+    const balance = (income ?? 0) - (expense ?? 0);
 
     // --- Calculate last month totals ---
 
-    const thisMonthStart = startOfMonth(new Date());
-    const lastMonthStart = startOfMonth(subMonths(new Date(), 1));
+    // const thisMonthStart = startOfMonth(new Date());
+    // const lastMonthStart = startOfMonth(subMonths(new Date(), 1));
 
-    const lastMonthIncome = INITIAL_TRANSACTIONS.filter(
-        (t) =>
-            t.type === "income" &&
-            isAfter(new Date(t.date), lastMonthStart) &&
-            isBefore(new Date(t.date), thisMonthStart)
-    ).reduce((sum, t) => sum + t.amount, 0);
+    // const lastMonthIncome = INITIAL_TRANSACTIONS.filter(
+    //     (t) =>
+    //         t.type === "income" &&
+    //         isAfter(new Date(t.date), lastMonthStart) &&
+    //         isBefore(new Date(t.date), thisMonthStart)
+    // ).reduce((sum, t) => sum + t.amount, 0);
 
-    const lastMonthExpenses = INITIAL_TRANSACTIONS.filter(
-        (t) =>
-            t.type === "expense" &&
-            isAfter(new Date(t.date), lastMonthStart) &&
-            isBefore(new Date(t.date), thisMonthStart)
-    ).reduce((sum, t) => sum + t.amount, 0);
+    // const lastMonthExpenses = INITIAL_TRANSACTIONS.filter(
+    //     (t) =>
+    //         t.type === "expense" &&
+    //         isAfter(new Date(t.date), lastMonthStart) &&
+    //         isBefore(new Date(t.date), thisMonthStart)
+    // ).reduce((sum, t) => sum + t.amount, 0);
     
 
     // useEffect(() => {
@@ -155,11 +163,11 @@ export default async function Home() {
             {/* <Navbar/> */}
             <section className="w-full lg:w-[60%]">
                 <BalanceInfoCard
-                    totalIncome={totalIncome}
-                    totalExpenses={totalExpenses}
+                    totalIncome={income ?? 0}
+                    totalExpenses={expense ?? 0}
                     balance={balance}
-                    lastIncome={lastMonthIncome}
-                    lastExpense={lastMonthExpenses}
+                    lastIncome={lastIncome ?? 0}
+                    lastExpense={lastExpense ?? 0}
                 />
 
                 <ExpenseChart data={INITIAL_TRANSACTIONS} />

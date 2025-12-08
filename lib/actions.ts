@@ -3,8 +3,9 @@ import { TransactionSchema } from "@/components/ExpenseForm";
 import { currentUser } from "@clerk/nextjs/server";
 import { prisma } from "./prisma";
 import { Prisma } from "./generated/prisma/client";
+import { startOfMonth, subMonths } from "date-fns";
 
-const ITEM_PER_PAGE = 10
+const ITEM_PER_PAGE = 10;
 
 export const createUser = async () => {
     try {
@@ -66,39 +67,38 @@ export const getTransactions = async ({
         if (!user) throw new Error("User not authenticated!");
 
         const query: Prisma.TransactionWhereInput = {
-            userId: user?.id
-        }
+            userId: user?.id,
+        };
         if (queryParams) {
             for (const [key, value] of Object.entries(queryParams)) {
                 if (value !== undefined) {
-                    switch (key){
+                    switch (key) {
                         case "search":
                             query.OR = [
                                 {
-                                    description:{
+                                    description: {
                                         contains: value,
-                                        mode: "insensitive"
-                                    }
+                                        mode: "insensitive",
+                                    },
                                 },
                                 {
                                     category: {
                                         contains: value,
-                                        mode: "insensitive"
-                                    }
+                                        mode: "insensitive",
+                                    },
                                 },
                                 {
                                     type: {
                                         contains: value,
-                                        mode: "insensitive"
-                                    }
-                                }
-                            ]
-                        break;
+                                        mode: "insensitive",
+                                    },
+                                },
+                            ];
+                            break;
 
                         default:
                             break;
-                    }   
-
+                    }
                 }
             }
         }
@@ -110,7 +110,7 @@ export const getTransactions = async ({
                 },
 
                 take: ITEM_PER_PAGE,
-                skip: ITEM_PER_PAGE * (p - 1)
+                skip: ITEM_PER_PAGE * (p - 1),
             }),
 
             prisma.transaction.count({
@@ -118,6 +118,61 @@ export const getTransactions = async ({
             }),
         ]);
         return { data: data, count: count, success: true, error: false };
+    } catch (error) {
+        console.error("failed to create transaction", error);
+        return { success: true, error: false };
+    }
+};
+
+export const getTransactionTotals = async () => {
+    try {
+        const user = await currentUser();
+        if (!user) throw new Error("User not authenticated!");
+
+        const thisMonthStart = startOfMonth(new Date());
+        const lastMonthStart = startOfMonth(subMonths(new Date(), 1));
+        const [totalIncome, totalExpense, lastMonthIncome, lastMonthExpense] =
+            await prisma.$transaction([
+                prisma.transaction.aggregate({
+                    where: { userId: user.id, type: "income" },
+                    _sum: { amount: true },
+                }),
+
+                prisma.transaction.aggregate({
+                    where: { userId: user.id, type: "expense" },
+                    _sum: { amount: true },
+                }),
+
+                prisma.transaction.aggregate({
+                    where: {
+                        userId: user.id,
+                        type: "income",
+                        date: {
+                            gte: lastMonthStart,
+                            lt: thisMonthStart,
+                        },
+                    },
+                    _sum: { amount: true },
+                }),
+
+                prisma.transaction.aggregate({
+                    where: {
+                        userId: user.id,
+                        type: "expense",
+                        date: {
+                            gte: lastMonthStart,
+                            lt: thisMonthStart,
+                        },
+                    },
+                    _sum: { amount: true },
+                }),
+            ]);
+
+        const income = totalIncome._sum.amount ?? 0;
+        const expense = totalExpense._sum.amount ?? 0;
+        const lastIncome = lastMonthIncome._sum.amount ?? 0;
+        const lastExpense = lastMonthExpense._sum.amount ?? 0;
+        return { income, expense, lastIncome, lastExpense };
     } catch (error) {
         console.error("failed to create transaction", error);
         return { success: true, error: false };
