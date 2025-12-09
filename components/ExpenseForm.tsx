@@ -24,13 +24,13 @@ import { useRouter } from "next/navigation";
 const EXPENSE_CATEGORIES = [
     "Food & Dining",
     "Shopping",
-    "Transportation",
+    "Grocery",
+    "Travel",
     "Entertainment",
     "Bills & Utilities",
     "Healthcare",
     "Education",
-    "Travel",
-    "Other",
+    "Others",
 ];
 
 const INCOME_CATEGORIES = [
@@ -39,7 +39,7 @@ const INCOME_CATEGORIES = [
     "Business",
     "Investments",
     "Gifts",
-    "Other",
+    "Others",
 ];
 
 const schema = z.object({
