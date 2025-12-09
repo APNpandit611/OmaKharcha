@@ -79,7 +79,7 @@ const TransactionPage = async ({
                                                 {transaction.type === "income"
                                                     ? "+"
                                                     : "-"}
-                                                ${transaction.amount.toFixed(2)}
+                                                €{transaction.amount.toFixed(2)}
                                             </span>
 
                                             {/* <Button

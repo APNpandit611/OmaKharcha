@@ -100,7 +100,7 @@ const RecentTransactions = ({ data }: { data: Transaction[] }) => {
                                                 {transaction.type === "income"
                                                     ? "+"
                                                     : "-"}
-                                                ${transaction.amount.toFixed(2)}
+                                                €{transaction.amount.toFixed(2)}
                                             </span>
 
                                             {/* <Button

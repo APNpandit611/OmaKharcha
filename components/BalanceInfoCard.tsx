@@ -58,7 +58,7 @@ const BalanceInfoCard = ({
                         </div>
                     </div>
                     <p className="text-white/80 mb-1">Total Balance</p>
-                    <h2 className="text-white">${balance.toFixed(2)}</h2>
+                    <h2 className="text-white">€{balance.toFixed(2)}</h2>
                 </div>
             </div>
 
@@ -88,7 +88,7 @@ const BalanceInfoCard = ({
                     </span>
                 </div>
                 <p className="text-gray-600 mb-1">Total Income</p>
-                <h2 className="text-green-600">${totalIncome.toFixed(2)}</h2>
+                <h2 className="text-green-600">€{totalIncome.toFixed(2)}</h2>
                 <p className="text-gray-500 mt-2 text-sm">This month</p>
             </div>
 
@@ -118,7 +118,7 @@ const BalanceInfoCard = ({
                     </span>
                 </div>
                 <p className="text-gray-600 mb-1">Total Expenses</p>
-                <h2 className="text-red-600">${totalExpenses.toFixed(2)}</h2>
+                <h2 className="text-red-600">€{totalExpenses.toFixed(2)}</h2>
                 <p className="text-gray-500 mt-2 text-sm">This month</p>
             </div>
 

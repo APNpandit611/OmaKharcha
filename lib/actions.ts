@@ -29,6 +29,7 @@ export const createUser = async () => {
         }
     } catch (error) {
         console.error("Failed to create error!", error);
+        return { success: false, error: true };
     }
 };
 
@@ -120,7 +121,7 @@ export const getTransactions = async ({
         return { data: data, count: count, success: true, error: false };
     } catch (error) {
         console.error("failed to create transaction", error);
-        return { success: true, error: false };
+        return { data: [], count: 0, success: false, error: true };
     }
 };
 
@@ -174,8 +175,25 @@ export const getTransactionTotals = async () => {
         const lastExpense = lastMonthExpense._sum.amount ?? 0;
         return { income, expense, lastIncome, lastExpense };
     } catch (error) {
-        console.error("failed to create transaction", error);
-        return { success: true, error: false };
+        console.error("failed to get totals", error);
+        return { income: 0, expense: 0, lastIncome: 0, lastExpense: 0 };
+    }
+};
+
+export const getAllTransactions = async () => {
+    try {
+        const user = await currentUser();
+        if (!user) throw new Error("User not authenticated!");
+        const data = await prisma.transaction.findMany({
+            where: { userId: user.id },
+            orderBy: {
+                updatedAt: "desc",
+            },
+        });
+        return { data: data, success: true, error: false };
+    } catch (error) {
+        console.error("failed to get all transactions", error);
+        return { data: [], success: false, error: true };
     }
 };
 
@@ -192,6 +210,6 @@ export const deleteTransaction = async (transactionId: string | undefined) => {
         return { success: true, error: false };
     } catch (error) {
         console.error("failed to delete transaction", error);
-        return { success: true, error: false };
+        return { success: false, error: true };
     }
 };

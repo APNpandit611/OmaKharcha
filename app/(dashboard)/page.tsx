@@ -2,7 +2,12 @@ import BalanceInfoCard from "@/components/BalanceInfoCard";
 import ExpenseChart from "@/components/ExpenseChart";
 import { IncomeExpenseChart } from "@/components/IncomeExpenseChart";
 import RecentTransactions from "@/components/RecentTransactions";
-import { createUser, getTransactions, getTransactionTotals } from "@/lib/actions";
+import {
+    createUser,
+    getAllTransactions,
+    getTransactions,
+    getTransactionTotals,
+} from "@/lib/actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { startOfMonth, subMonths, isAfter, isBefore } from "date-fns";
 
@@ -110,17 +115,12 @@ export default async function Home() {
     if (user) {
         await createUser();
     }
-
-    const trans = await getTransactionTotals()
-    const {
-        income,
-        expense,
-        lastIncome,
-        lastExpense,
-    } = trans;
-
     const transactions = await getTransactions({ p: 1 });
-    const INITIAL_TRANSACTIONS = transactions.data ?? [];
+    const { data } = await getAllTransactions();
+    const trans = await getTransactionTotals();
+    const { income, expense, lastIncome, lastExpense } = trans;
+
+    const INITIAL_TRANSACTIONS = transactions.data;
 
     // const totalIncome = INITIAL_TRANSACTIONS.filter(
     //     (t) => t.type === "income"
@@ -150,7 +150,6 @@ export default async function Home() {
     //         isAfter(new Date(t.date), lastMonthStart) &&
     //         isBefore(new Date(t.date), thisMonthStart)
     // ).reduce((sum, t) => sum + t.amount, 0);
-    
 
     // useEffect(() => {
     //     const saveUser = async() => {
@@ -170,8 +169,8 @@ export default async function Home() {
                     lastExpense={lastExpense ?? 0}
                 />
 
-                <ExpenseChart data={INITIAL_TRANSACTIONS} />
-                <IncomeExpenseChart data={INITIAL_TRANSACTIONS} />
+                <ExpenseChart data={data ?? []} />
+                <IncomeExpenseChart data={data ?? []} />
             </section>
 
             <div className="w-full lg:w-[40%]">
