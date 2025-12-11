@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💰 OmaKharcha - Your Personal Expense Tracker
 
-## Getting Started
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-oma--kharcha.vercel.app-blue)](https://oma-kharcha.vercel.app)
 
-First, run the development server:
+OmaKharcha (Finnish for 'Own Expenses') is a modern, responsive web application designed to help you effortlessly track and manage your daily expenses and income. Keep a clear overview of your personal finances with a simple, intuitive interface.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features (Assumed)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Simple Expense Logging:** Quickly add new transactions (expenses and income).
+* **Expense Categorization:** Organize your spending with various categories.
+* **Summary Dashboard:** View a snapshot of your recent financial activity.
+* **Data Persistence:** Securely store and manage your financial records.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Live Demo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Experience the application live here:
+**[oma-kharcha.vercel.app](https://oma-kharcha.vercel.app)**
 
-## Learn More
+## 📸 Screenshots
 
-To learn more about Next.js, take a look at the following resources:
+*Since I cannot generate images directly, please replace the text below with screenshots of your app's main dashboard, add expense modal, or overall UI.*
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Dashboard Overview
+<kbd>
+    <img src="public/omakharcha1.png" alt="OmaKharcha Dashboard" />
+</kbd>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Transaction List Overview
+<kbd>
+    <img src="public/omakharcha2.png" alt="OmaKharcha Dashboard" />
+</kbd>
 
-## Deploy on Vercel
+### Add Expense Form
+<kbd>
+    <img src="public/omakharcha3.png" alt="Add New Expense Form" />
+</kbd>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Technology Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is built using the following modern web technologies:
+
+* **Frontend Framework:** [Next.js](https://nextjs.org/) (App Router)
+* **Language:** [TypeScript](https://www.typescriptlang.org/)
+* **Styling:** Tailwind CSS (Likely, based on modern Next.js setup)
+* **Database ORM:** [Prisma](https://www.prisma.io/)
+
+## 💻 Getting Started
+
+Follow these steps to set up and run the project locally.
+
+### Prerequisites
+
+* Node.js (LTS recommended)
+* A database connection (configured for Prisma)
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/APNpandit611/OmaKharcha.git](https://github.com/APNpandit611/OmaKharcha.git)
+    cd OmaKharcha
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    ```
+
+3.  **Setup Environment Variables:**
+    Create a `.env` file in the root directory and add your database connection string and any other required variables (e.g., `DATABASE_URL`).
+
+4.  **Run Prisma Migrations:**
+    ```bash
+    npx prisma migrate dev
+    ```
+
+5.  **Run the development server:**
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    # or
+    pnpm dev
+    ```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
