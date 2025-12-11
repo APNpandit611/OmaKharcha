@@ -10,7 +10,7 @@ const roboto = Roboto({
   display: "swap",
 });
 export const metadata: Metadata = {
-    title: "Expense Tracker App",
+    title: "OmaKharcha",
     description: "Expense Tracking Application",
 };
 
