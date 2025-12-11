@@ -18,8 +18,6 @@ Experience the application live here:
 
 ## 📸 Screenshots
 
-*Since I cannot generate images directly, please replace the text below with screenshots of your app's main dashboard, add expense modal, or overall UI.*
-
 ### Dashboard Overview
 <kbd>
     <img src="public/omakharcha1.png" alt="OmaKharcha Dashboard" />
