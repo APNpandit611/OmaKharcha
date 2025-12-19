@@ -46,14 +46,15 @@ export function IncomeExpenseChart({ data }: { data: Transaction[] }) {
 
     // 2. Convert the grouped data into the format the chart needs
     const chartData = Object.entries(totalsByDate)
+        // 3. Sort the data and take the last 10 entries
+        .sort(([a], [b]) => a.localeCompare(b)) 
         .map(([date, values]) => ({
             date: formatDateForDisplay(date), // The nice, short date for display
             Income: values.income,
             Expenses: values.expense,
         }))
-        // 3. Sort the data and take the last 10 entries
-        .sort((a, b) => a.date.localeCompare(b.date)) // We can sort by the formatted date now, or better yet...
-        // .sort((a, b) => new Date(a.originalDate).getTime() - new Date(b.originalDate).getTime()) // ...by the original key if you kept it. This is more robust.
+        // .sort((a, b) => a.date.localeCompare(b.date))
+        // .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()) // ...by the original key if you kept it. This is more robust.
         .slice(-10);
 
     return (
