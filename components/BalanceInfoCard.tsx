@@ -1,8 +1,6 @@
 import { cn } from "@/lib/utils";
 import {
-    ArrowDownCircle,
     ArrowDownRight,
-    ArrowUpCircle,
     ArrowUpRight,
     TrendingDown,
     TrendingUp,
@@ -82,7 +80,7 @@ const BalanceInfoCard = ({
             </Card> */}
 
             {/* Total Balance */}
-            <div className="group relative overflow-hidden backdrop-blur-xl bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <div className="group relative overflow-hidden backdrop-blur-xl bg-linear-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300">
                 <div className="absolute inset-0 bg-white/10"></div>
                 <div className="relative z-10 ">
                     <div className="flex items-center justify-between mb-8">
@@ -235,7 +233,7 @@ const BalanceInfoCard = ({
                     €{currMonthSavings.toFixed(2)}
                 </h2>
 
-                <p className="text-gray-400 mt-1 text-xs">
+                <p className="text-gray-400 mt-2 text-xs">
                     €{prevMonthSavings.toFixed(2)} ({prevMonthDateShort}{" "}
                     {prevYear})
                 </p>
