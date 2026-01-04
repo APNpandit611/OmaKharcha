@@ -58,7 +58,7 @@ export function IncomeExpenseChart({ data }: { data: Transaction[] }) {
         }))
         // .sort((a, b) => a.date.localeCompare(b.date))
         // .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()) // ...by the original key if you kept it. This is more robust.
-        .slice(-10);
+        .slice(-32);
 
     return (
         <div className="w-full p-3">
