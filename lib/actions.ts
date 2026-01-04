@@ -120,7 +120,7 @@ export const getTransactions = async ({
         ]);
         return { data: data, count: count, success: true, error: false };
     } catch (error) {
-        console.error("failed to create transaction", error);
+        console.error("failed to get transaction", error);
         return { data: [], count: 0, success: false, error: true };
     }
 };
@@ -132,60 +132,120 @@ export const getTransactionTotals = async () => {
 
         const thisMonthStart = startOfMonth(new Date());
         const lastMonthStart = startOfMonth(subMonths(new Date(), 1));
-        const [totalIncome, totalExpense, lastMonthIncome, lastMonthExpense] =
-            await prisma.$transaction([
-                prisma.transaction.aggregate({
-                    where: { userId: user.id, type: "income" },
-                    _sum: { amount: true },
-                }),
 
-                prisma.transaction.aggregate({
-                    where: { userId: user.id, type: "expense" },
-                    _sum: { amount: true },
-                }),
+        const [
+            totalIncome,
+            totalExpense,
+            thisMonthIncome,
+            thisMonthExpense,
+            lastMonthIncome,
+            lastMonthExpense,
+        ] = await prisma.$transaction([
+            prisma.transaction.aggregate({
+                where: {
+                    userId: user.id,
+                    type: "income",
+                },
+                _sum: { amount: true },
+            }),
 
-                prisma.transaction.aggregate({
-                    where: {
-                        userId: user.id,
-                        type: "income",
-                        date: {
-                            gte: lastMonthStart,
-                            lt: thisMonthStart,
-                        },
+            prisma.transaction.aggregate({
+                where: {
+                    userId: user.id,
+                    type: "expense",
+                },
+                _sum: { amount: true },
+            }),
+
+            prisma.transaction.aggregate({
+                where: {
+                    userId: user.id,
+                    type: "income",
+                    date: {
+                        gte: thisMonthStart,
+                        lt: new Date(),
                     },
-                    _sum: { amount: true },
-                }),
+                },
+                _sum: { amount: true },
+            }),
 
-                prisma.transaction.aggregate({
-                    where: {
-                        userId: user.id,
-                        type: "expense",
-                        date: {
-                            gte: lastMonthStart,
-                            lt: thisMonthStart,
-                        },
+            prisma.transaction.aggregate({
+                where: {
+                    userId: user.id,
+                    type: "expense",
+                    date: {
+                        gte: thisMonthStart,
+                        lt: new Date(),
                     },
-                    _sum: { amount: true },
-                }),
-            ]);
+                },
+                _sum: { amount: true },
+            }),
+
+            prisma.transaction.aggregate({
+                where: {
+                    userId: user.id,
+                    type: "income",
+                    date: {
+                        gte: lastMonthStart,
+                        lt: thisMonthStart,
+                    },
+                },
+                _sum: { amount: true },
+            }),
+
+            prisma.transaction.aggregate({
+                where: {
+                    userId: user.id,
+                    type: "expense",
+                    date: {
+                        gte: lastMonthStart,
+                        lt: thisMonthStart,
+                    },
+                },
+                _sum: { amount: true },
+            }),
+        ]);
 
         const income = totalIncome._sum.amount ?? 0;
         const expense = totalExpense._sum.amount ?? 0;
+        const currentIncome = thisMonthIncome._sum.amount ?? 0;
+        const currentExpense = thisMonthExpense._sum.amount ?? 0;
         const lastIncome = lastMonthIncome._sum.amount ?? 0;
         const lastExpense = lastMonthExpense._sum.amount ?? 0;
-        return { income, expense, lastIncome, lastExpense };
+        return {
+            income,
+            expense,
+            currentIncome,
+            currentExpense,
+            lastIncome,
+            lastExpense,
+        };
     } catch (error) {
         console.error("failed to get totals", error);
-        return { income: 0, expense: 0, lastIncome: 0, lastExpense: 0 };
+        return {
+            income: 0,
+            expense: 0,
+            currentIncome: 0,
+            currentExpense: 0,
+            lastIncome: 0,
+            lastExpense: 0,
+        };
     }
 };
 
 export const getAllTransactions = async () => {
     try {
         const user = await currentUser();
+        const thisMonthStart = startOfMonth(new Date());
         if (!user) throw new Error("User not authenticated!");
         const data = await prisma.transaction.findMany({
-            where: { userId: user.id },
+            where: {
+                userId: user.id,
+                date: {
+                    gte: thisMonthStart,
+                    lt: new Date(),
+                },
+            },
             orderBy: {
                 updatedAt: "desc",
             },

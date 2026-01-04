@@ -36,11 +36,16 @@ const ExpenseChart = ({ data }: { data: Transaction[] }) => {
         value,
     }));
 
+    const now = new Date();
+    const shortMonth = now.toLocaleDateString("en-US", { month: "short" });
+    const year = now.getFullYear();
+
+
     return (
         <div className="w-full p-3">
             <Card className="group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-2xl transition-all duration-300">
                 <CardHeader>
-                    <CardTitle>Expenses by Category</CardTitle>
+                    <CardTitle>Expenses by Category ({shortMonth} {year})</CardTitle>
                 </CardHeader>
                 <CardContent>
                     {chartsData.length === 0 ? (

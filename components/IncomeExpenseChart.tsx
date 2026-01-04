@@ -13,6 +13,9 @@ import {
 } from "recharts";
 import { Label } from "./ui/label";
 
+const shortMonth = new Date().toLocaleDateString("en-US", { month: "short" });
+const year = new Date().getFullYear();
+
 // Helper function to format a date string for display
 const formatDateForDisplay = (dateString: string) =>
     new Date(dateString).toLocaleDateString("en-US", {
@@ -61,7 +64,7 @@ export function IncomeExpenseChart({ data }: { data: Transaction[] }) {
         <div className="w-full p-3">
             <div className=" rounded-2xl p-6 group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-2xl transition-all duration-300">
                 <Label className="text-gray-900 text-md mb-4">
-                    Spending Trends
+                    Spending Trends ({shortMonth} {year})
                 </Label>
 
                 {chartData.length === 0 ? (

@@ -131,7 +131,7 @@ const FormModal = ({
                 // </button>
                 <button
                     onClick={() => setOpen(true)}
-                    className="flex items-center justify-center gap-2 md:px-5 md:py-2 px-4 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold shadow-lg transform transition-transform duration-200 hover:scale-105 hover:shadow-xl active:scale-95 active:shadow-md focus:outline-none focus:ring-4 focus:ring-purple-400 focus:ring-offset-2 text-sm sm:text-xs"
+                    className="flex items-center justify-center gap-2 md:px-5 md:py-2 px-4 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold shadow-lg transform transition-transform duration-200 hover:scale-105 hover:shadow-xl active:scale-95 active:shadow-md focus:outline-none focus:ring-4 focus:ring-purple-400 focus:ring-offset-2 text-sm sm:text-xs cursor-pointer"
                 >
                     <Plus className="w-4 h-4 sm:w-3 sm:h-3" />
                     Add

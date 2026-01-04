@@ -9,7 +9,6 @@ import {
     getTransactionTotals,
 } from "@/lib/actions";
 import { currentUser } from "@clerk/nextjs/server";
-import { startOfMonth, subMonths, isAfter, isBefore } from "date-fns";
 
 //     id: string;
 //     type: "income" | "expense";
@@ -118,7 +117,7 @@ export default async function Home() {
     const transactions = await getTransactions({ p: 1 });
     const { data } = await getAllTransactions();
     const trans = await getTransactionTotals();
-    const { income, expense, lastIncome, lastExpense } = trans;
+    const { income, expense, currentIncome, currentExpense, lastIncome, lastExpense } = trans;
 
     const INITIAL_TRANSACTIONS = transactions.data;
 
@@ -162,8 +161,8 @@ export default async function Home() {
             {/* <Navbar/> */}
             <section className="w-full lg:w-[60%]">
                 <BalanceInfoCard
-                    totalIncome={income ?? 0}
-                    totalExpenses={expense ?? 0}
+                    totalIncome={currentIncome ?? 0}
+                    totalExpenses={currentExpense ?? 0}
                     balance={balance}
                     lastIncome={lastIncome ?? 0}
                     lastExpense={lastExpense ?? 0}
