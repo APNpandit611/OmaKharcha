@@ -45,7 +45,7 @@ const ExpenseChart = ({ data }: { data: Transaction[] }) => {
         <div className="w-full p-3">
             <Card className="group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-2xl transition-all duration-300">
                 <CardHeader>
-                    <CardTitle>Expenses by Category ({shortMonth} {year})</CardTitle>
+                    <CardTitle className="font-semibold">Expenses by Category ({shortMonth} {year})</CardTitle>
                 </CardHeader>
                 <CardContent>
                     {chartsData.length === 0 ? (
