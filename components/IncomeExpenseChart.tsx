@@ -63,7 +63,7 @@ export function IncomeExpenseChart({ data }: { data: Transaction[] }) {
     return (
         <div className="w-full p-3">
             <div className=" rounded-2xl p-6 group relative overflow-hidden backdrop-blur-xl bg-white/60 border border-white/40 shadow-lg hover:shadow-2xl transition-all duration-300">
-                <Label className="text-gray-900 text-md mb-4 font-font-semibold">
+                <Label className="text-gray-900 text-md mb-4 font-semibold">
                     Spending Trends ({shortMonth} {year})
                 </Label>
 

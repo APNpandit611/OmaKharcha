@@ -236,15 +236,11 @@ export const getTransactionTotals = async () => {
 export const getAllTransactions = async () => {
     try {
         const user = await currentUser();
-        const thisMonthStart = startOfMonth(new Date());
+        // const thisMonthStart = startOfMonth(new Date());
         if (!user) throw new Error("User not authenticated!");
         const data = await prisma.transaction.findMany({
             where: {
                 userId: user.id,
-                date: {
-                    gte: thisMonthStart,
-                    lt: new Date(),
-                },
             },
             orderBy: {
                 updatedAt: "desc",
