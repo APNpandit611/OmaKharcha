@@ -39,7 +39,7 @@ const BalanceInfoCard = ({
     const isUp = differenceIncome >= 0;
 
     // expense difference calculation
-    const differenceExpense = totalExpenses - lastExpense;
+    const differenceExpense = 1400 - 1300;
     const previousExpense =
         lastExpense === 0 ? 0 : (differenceExpense / lastExpense) * 100;
     const isExpenseUp = differenceExpense >= 0;
@@ -123,7 +123,7 @@ const BalanceInfoCard = ({
 
                     <span
                         className={cn(
-                            "px-2 py-1 rounded-full",
+                            "px-2 py-1 rounded-full font-medium ",
                             isUp
                                 ? "text-green-600 bg-green-100"
                                 : "text-red-600 bg-red-100"
@@ -171,7 +171,7 @@ const BalanceInfoCard = ({
                     </div>
                     <span
                         className={cn(
-                            "px-2 py-1 rounded-full",
+                            "px-2 py-1 rounded-full font-medium",
                             isExpenseUp
                                 ? "text-green-600 bg-green-100"
                                 : "text-red-600 bg-red-100"
@@ -212,7 +212,8 @@ const BalanceInfoCard = ({
                         )}
                     </div>
 
-                    <span className="text-purple-600 bg-purple-100 px-2 py-1 rounded-full text-sm font-medium">
+                    <span className="text-purple-600 bg-purple-100 px-2 py-1 rounded-full font-medium">
+                        {isSavingUp ? "+" : ""}
                         {savingsRate.toFixed(2)} %
                     </span>
                 </div>
