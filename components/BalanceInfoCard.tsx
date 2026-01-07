@@ -130,7 +130,7 @@ const BalanceInfoCard = ({
                         )}
                     >
                         {isUp ? "+" : ""}
-                        {PreviousIncome.toFixed(1)} %
+                        {PreviousIncome.toFixed(2)} %
                     </span>
                 </div>
                 <p className="text-gray-600 mb-1">
@@ -178,7 +178,7 @@ const BalanceInfoCard = ({
                         )}
                     >
                         {isExpenseUp ? "+" : ""}
-                        {previousExpense.toFixed(1)} %
+                        {previousExpense.toFixed(2)} %
                     </span>
                 </div>
                 <p className="text-gray-600 mb-1">
