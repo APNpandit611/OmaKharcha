@@ -39,7 +39,7 @@ const BalanceInfoCard = ({
     const isUp = differenceIncome >= 0;
 
     // expense difference calculation
-    const differenceExpense = 1400 - 1300;
+    const differenceExpense = totalExpenses - lastExpense;
     const previousExpense =
         lastExpense === 0 ? 0 : (differenceExpense / lastExpense) * 100;
     const isExpenseUp = differenceExpense >= 0;

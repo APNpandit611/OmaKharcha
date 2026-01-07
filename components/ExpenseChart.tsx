@@ -78,7 +78,7 @@ const ExpenseChart = ({ data }: { data: Transaction[] }) => {
                                 </Pie>
                                 <Tooltip
                                     formatter={(value: number) =>
-                                        `$${value.toFixed(2)}`
+                                        `€${value.toFixed(2)}`
                                     }
                                 />
                                 <Legend />
