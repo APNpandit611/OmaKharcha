@@ -1,11 +1,16 @@
+"use client";
 import { cn } from "@/lib/utils";
 import {
     ArrowDownRight,
     ArrowUpRight,
+    Eye,
+    EyeClosed,
+    EyeOff,
     TrendingDown,
     TrendingUp,
     Wallet,
 } from "lucide-react";
+import { useState } from "react";
 
 type BalanceInfoCardProps = {
     totalIncome: number;
@@ -44,7 +49,6 @@ const BalanceInfoCard = ({
         lastExpense === 0 ? 0 : (differenceExpense / lastExpense) * 100;
     const isExpenseUp = differenceExpense >= 0;
 
-
     // date calculations
     const now = new Date();
     const prevMonthDate = new Date(now);
@@ -57,6 +61,18 @@ const BalanceInfoCard = ({
     });
     const prevYear = prevMonthDate.getFullYear();
     const currYear = now.getFullYear();
+
+    // handle visibility toggle
+    const [visible, setVisible] = useState<Record<string, boolean>>({
+        balance: false,
+        income: false,
+        expense: false,
+        savings: false,
+    });
+
+    const handleClose = (key: string) => {
+        setVisible((prev) => ({ ...prev, [key]: !prev[key] }));
+    };
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-3">
@@ -85,13 +101,29 @@ const BalanceInfoCard = ({
                 <div className="relative z-10 ">
                     <div className="flex items-center justify-between mb-8">
                         <Wallet className="h-8 w-8 text-white/80" />
-                        <div className="bg-white/20 rounded-full p-2">
-                            <TrendingUp className="h-4 w-4 text-white" />
+                        <div className="flex items-center gap-3">
+                            <div className="bg-white/20 rounded-full p-2">
+                                <TrendingUp className="h-4 w-4 text-white" />
+                            </div>
+                            <div
+                                onClick={() => handleClose("balance")}
+                                className="bg-white/20 rounded-full p-2"
+                            >
+                                {visible.balance ? (
+                                    <Eye className="h-4 w-4 text-white" />
+                                ) : (
+                                    <EyeOff className="h-4 w-4 text-white " />
+                                )}
+                            </div>
                         </div>
                     </div>
                     <p className="text-white/80 mb-1">Total Balance</p>
                     <h2 className="text-white font-semibold">
-                        €{balance.toFixed(2)}
+                        {visible.balance ? (
+                            `€${balance.toFixed(2)}`
+                        ) : (
+                            <span className="tracking-wider">*****</span>
+                        )}
                     </h2>
                 </div>
             </div>
@@ -121,17 +153,34 @@ const BalanceInfoCard = ({
                         {lastIncome} %
                     </span> */}
 
-                    <span
-                        className={cn(
-                            "px-2 py-1 rounded-full font-medium ",
-                            isUp
-                                ? "text-green-600 bg-green-100"
-                                : "text-red-600 bg-red-100"
-                        )}
-                    >
-                        {isUp ? "+" : ""}
-                        {PreviousIncome.toFixed(2)} %
-                    </span>
+                    <div className="flex items-center gap-3">
+                        <span
+                            className={cn(
+                                "px-2 py-1 rounded-full font-medium ",
+                                isUp
+                                    ? "text-green-600 bg-green-100"
+                                    : "text-red-600 bg-red-100"
+                            )}
+                        >
+                            {visible.income ? (
+                                `${isUp ? "+" : ""}${PreviousIncome.toFixed(
+                                    2
+                                )} %`
+                            ) : (
+                                <span className="tracking-wider">****</span>
+                            )}
+                        </span>
+                        <div
+                            onClick={() => handleClose("income")}
+                            className="bg-green-100  rounded-full p-2"
+                        >
+                            {visible.income ? (
+                                <Eye className="h-4 w-4 text-green-600" />
+                            ) : (
+                                <EyeOff className="h-4 w-4 text-green-600" />
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <p className="text-gray-600 mb-1">
                     Total Income (
@@ -141,10 +190,19 @@ const BalanceInfoCard = ({
                     )
                 </p>
                 <h2 className="text-green-600 text-lg font-semibold">
-                    €{totalIncome.toFixed(2)}
+                    {visible.income ? (
+                        `€${totalIncome.toFixed(2)}`
+                    ) : (
+                        <span className="tracking-wider">*****</span>
+                    )}
                 </h2>
                 <p className="text-gray-400 mt-2 text-xs">
-                    €{lastIncome.toFixed(2)} ({prevMonthDateShort} {prevYear})
+                    {visible.income ? (
+                        `€${lastIncome.toFixed(2)}`
+                    ) : (
+                        <span className="tracking-wider">*****</span>
+                    )}{" "}
+                    ({prevMonthDateShort} {prevYear})
                 </p>
             </div>
 
@@ -169,17 +227,43 @@ const BalanceInfoCard = ({
                     <div className="bg-red-100 rounded-full p-3">
                         <ArrowDownRight className="h-5 w-5 text-red-600" />
                     </div>
-                    <span
-                        className={cn(
-                            "px-2 py-1 rounded-full font-medium",
-                            isExpenseUp
-                                ? "text-green-600 bg-green-100"
-                                : "text-red-600 bg-red-100"
-                        )}
-                    >
-                        {isExpenseUp ? "+" : ""}
-                        {previousExpense.toFixed(2)} %
-                    </span>
+                    <div className="flex items-center gap-3">
+                        <span
+                            className={cn(
+                                "px-2 py-1 rounded-full font-medium",
+                                isExpenseUp
+                                    ? "text-green-600 bg-green-100"
+                                    : "text-red-600 bg-red-100"
+                            )}
+                        >
+                            {/* {isExpenseUp ? "+" : ""}
+                        {previousExpense.toFixed(2)} % */}
+
+                            {visible.expense ? (
+                                `${
+                                    isExpenseUp ? "+" : ""
+                                }${previousExpense.toFixed(2)} %`
+                            ) : (
+                                <span className="tracking-wider">****</span>
+                            )}
+                        </span>
+
+                        <div
+                            onClick={() => handleClose("expense")}
+                            className={cn(
+                                "bg-green-100  rounded-full p-2",
+                                isExpenseUp
+                                    ? "text-green-600 bg-green-100"
+                                    : "text-red-600 bg-red-100"
+                            )}
+                        >
+                            {visible.expense ? (
+                                <Eye className={`h-4 w-4 `} />
+                            ) : (
+                                <EyeOff className={`h-4 w-4`} />
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <p className="text-gray-600 mb-1">
                     Total Expense (
@@ -189,10 +273,20 @@ const BalanceInfoCard = ({
                     )
                 </p>
                 <h2 className="text-red-600 text-lg font-semibold">
-                    €{totalExpenses.toFixed(2)}
+                    {/* €{totalExpenses.toFixed(2)} */}
+                    {visible.expense ? (
+                        `€${totalExpenses.toFixed(2)}`
+                    ) : (
+                        <span className="tracking-wider">*****</span>
+                    )}
                 </h2>
                 <p className="text-gray-400 mt-2 text-xs">
-                    €{lastExpense.toFixed(2)} ({prevMonthDateShort} {prevYear})
+                    {visible.expense ? (
+                        `€${lastExpense.toFixed(2)}`
+                    ) : (
+                        <span className="tracking-wider">*****</span>
+                    )}{" "}
+                    ({prevMonthDateShort} {prevYear})
                 </p>
             </div>
 
@@ -211,11 +305,30 @@ const BalanceInfoCard = ({
                             <TrendingDown className="h-5 w-5 text-orange-600" />
                         )}
                     </div>
+                    <div className="flex items-center gap-3">
+                        <span className="text-purple-600 bg-purple-100 px-2 py-1 rounded-full font-medium">
+                            {visible.savings ? (
+                                `${isSavingUp ? "+" : ""}${savingsRate.toFixed(
+                                    2
+                                )} %`
+                            ) : (
+                                <span className="tracking-wider">****</span>
+                            )}
+                        </span>
 
-                    <span className="text-purple-600 bg-purple-100 px-2 py-1 rounded-full font-medium">
-                        {isSavingUp ? "+" : ""}
-                        {savingsRate.toFixed(2)} %
-                    </span>
+                        <div
+                            onClick={() => handleClose("savings")}
+                            className={cn(
+                                "rounded-full p-2 text-purple-600 bg-purple-100"
+                            )}
+                        >
+                            {visible.savings ? (
+                                <Eye className={`h-4 w-4`} />
+                            ) : (
+                                <EyeOff className={`h-4 w-4`} />
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <p className="text-gray-600 mb-1">
                     Savings Rate (
@@ -231,12 +344,21 @@ const BalanceInfoCard = ({
                         isSavingUp ? "text-emerald-600" : "text-red-600"
                     )}
                 >
-                    €{currMonthSavings.toFixed(2)}
+                    {/* €{currMonthSavings.toFixed(2)} */}
+                    {visible.savings ? (
+                        `€${currMonthSavings.toFixed(2)}`
+                    ) : (
+                        <span className="tracking-wider">*****</span>
+                    )}
                 </h2>
 
                 <p className="text-gray-400 mt-2 text-xs">
-                    €{prevMonthSavings.toFixed(2)} ({prevMonthDateShort}{" "}
-                    {prevYear})
+                    {visible.savings ? (
+                        `€${prevMonthSavings.toFixed(2)}`
+                    ) : (
+                        <span className="tracking-wider">*****</span>
+                    )}{" "}
+                    ({prevMonthDateShort} {prevYear})
                 </p>
             </div>
         </div>
